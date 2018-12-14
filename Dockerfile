@@ -1,4 +1,4 @@
 FROM nginx:1.15.7-alpine
 
-COPY ./aa /app
+COPY ./www/ /usr/share/nginx/html/
 

@@ -1,0 +1,11 @@
+#docker 命令行管理
+version: '2.0'
+services:
+  phpfpm:
+    image: shanliu/phpfpm:1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    
