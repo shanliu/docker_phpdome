@@ -2,7 +2,7 @@
 version: '2.0'
 services:
   phpfpm:
-    image: shanliu/phpfpm:1
+    image: shanliu/phpfpm
     build:
       context: ./
       dockerfile: Dockerfile
