@@ -41,7 +41,6 @@ RUN set -ex \
 	gettext \
 	xsl  \
 	intl \
-	fileinfo \
 	redis \
 	yaf \
 #	swoole \
@@ -55,5 +54,8 @@ RUN set -ex \
 && ln -s /usr/local/bin/composer.phar /usr/local/bin/composer \
 && composer config -g secure-http false \
 && composer self-update
+
+
+WORKDIR /var/www
 
 CMD ["php-fpm","-F"]

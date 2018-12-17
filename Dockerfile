@@ -1,10 +1,3 @@
-FROM nginx:1.15.7-alpine
+FROM shanliu/phpfpm
 
-
-COPY ./docker/nginx/conf.d/ /etc/nginx/conf.d/
-
-
-COPY ./www/ /var/www/public_html/
-
-
-
+COPY ./www/ /var/www/

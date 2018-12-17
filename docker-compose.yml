@@ -34,34 +34,31 @@ services:
       default:
         aliases:
           - host-mongo
-        
+
   php:
-    container_name: ls_php
-#    build:
-#      context: ./docker/php7
-#      dockerfile: Dockerfile
-    image: shanliu/phpfpm
+    container_name: webdome
+    image: shanliu/webdome
+    build:
+      context: ./
+      dockerfile: Dockerfile
     volumes:
-        - $PWD/docker/php7/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - $PWD/www/:/var/www/:ro
+      - $PWD/docker/php7/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
     networks:
       default:
         aliases:
           - host-php
-      
-  www:
-    container_name: ls_www
-    image: shanliu/wwwdome
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    
+  nginx:
+    container_name: ls_nginx
+    image: nginx:1.15.7-alpine
     ports:
-      - '8100:80'
+      - '80:80'
     volumes:
-      - $PWD/www:/var/www/public_html/:ro #ro 表示只读
-      - $PWD/docker/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro #配置覆盖
+      - $PWD/docker/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro
+      - $PWD/www/public:/var/www/public:ro
     depends_on:
       - mysql
       - redis
       - mongo
-      - php
-    
+      - php  
