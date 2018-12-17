@@ -1,7 +1,7 @@
 version: '2.0'
 services:    
   mysql:
-    container_name: ls_mysql
+    container_name: fpm_dome_mysql
     image: mysql
     volumes:
       - $PWD/docker/data/mysql:/var/lib/mysql
@@ -13,7 +13,7 @@ services:
           - host-mysql
 
   redis:
-    container_name: ls_redis
+    container_name: fpm_dome_redis
     image: redis:5.0.3-alpine
     volumes:
         - $PWD/docker/data/redis:/data
@@ -23,11 +23,11 @@ services:
           - host-redis
 
   php:
-    container_name: webdome
-    image: shanliu/fpmdome
+    container_name: fpm_dome_php
+    image: shanliu/phpfpmdome
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: php.Dockerfile
     volumes:
       - $PWD/www/:/var/www/:ro
       - $PWD/docker/php7/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
@@ -37,8 +37,11 @@ services:
           - host-php
     
   nginx:
-    container_name: ls_nginx
-    image: nginx:1.15.7-alpine
+    container_name: fpm_dome_nginx
+    image: shanliu/nginxfpmdome
+    build:
+      context: ./
+      dockerfile: nginx.Dockerfile
     ports:
       - '8011:80'
     volumes:
