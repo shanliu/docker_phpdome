@@ -56,7 +56,7 @@ services:
       - '80:80'
     volumes:
       - $PWD/docker/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro
-      - $PWD/www/public:/var/www/public:ro
+      - $PWD/www/public/:/var/www/public/:ro
     depends_on:
       - mysql
       - redis
