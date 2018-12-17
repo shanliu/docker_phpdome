@@ -1,5 +1,8 @@
 FROM php:7.3-fpm-alpine
 
+
+COPY ./php-fpm.d/www.conf /usr/local/etc/php-fpm.d/www.conf
+
 RUN set -ex \
 && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/' /etc/apk/repositories \
 && apk update \

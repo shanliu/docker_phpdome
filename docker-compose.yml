@@ -1,11 +1,10 @@
-#docker 命令行管理
 version: '2.0'
 services:    
   mysql:
     container_name: ls_mysql
     image: mysql
     volumes:
-      - $PWD/data/mysql:/var/lib/mysql
+      - $PWD/docker/data/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=110
     networks:
@@ -17,7 +16,7 @@ services:
     container_name: ls_redis
     image: redis:5.0.3-alpine
     volumes:
-        - $PWD/data/redis:/data
+        - $PWD/docker/data/redis:/data
     networks:
       default:
         aliases:
@@ -27,7 +26,7 @@ services:
     container_name: ls_mongo
     image: mongo:4
     volumes:
-        - $PWD/data/mongo:/data/db
+        - $PWD/docker/data/mongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 110
@@ -38,10 +37,12 @@ services:
         
   php:
     container_name: ls_php
-    build:
-      context: ./php7
-      dockerfile: Dockerfile
+#    build:
+#      context: ./docker/php7
+#      dockerfile: Dockerfile
     image: shanliu/phpfpm
+    volumes:
+        - $PWD/docker/php7/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
     networks:
       default:
         aliases:
@@ -57,7 +58,7 @@ services:
       - '8100:80'
     volumes:
       - $PWD/www:/var/www/public_html/:ro #ro 表示只读
-      - $PWD/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro #配置覆盖
+      - $PWD/docker/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro #配置覆盖
     depends_on:
       - mysql
       - redis

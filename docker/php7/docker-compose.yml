@@ -8,4 +8,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - '9000:9000'
+    volumes:
+      - $PWD/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
     
