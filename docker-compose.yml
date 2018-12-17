@@ -50,7 +50,7 @@ services:
       
   www:
     container_name: ls_www
-    image: shanliu/nginxphp
+    image: shanliu/wwwdome
     build:
       context: ./
       dockerfile: Dockerfile
