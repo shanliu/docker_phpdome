@@ -27,10 +27,10 @@ RUN set -ex \
 && tar zfvx ./yaf.tar.gz \
 && mv yaf-* /usr/src/php/ext/yaf \
 && rm -rf yaf-* \
-&& wget -O ./swoole.tar.gz  https://github.com/swoole/swoole-src/archive/v4.2.9.tar.gz \
-&& tar zfvx ./swoole.tar.gz \
-&& mv swoole-* /usr/src/php/ext/swoole \
-&& rm -rf swoole-* \
+#&& wget -O ./swoole.tar.gz  https://github.com/swoole/swoole-src/archive/v4.2.9.tar.gz \
+#&& tar zfvx ./swoole.tar.gz \
+#&& mv swoole-* /usr/src/php/ext/swoole \
+#&& rm -rf swoole-* \
 && docker-php-ext-install \
 	sockets \
 	bcmath \
