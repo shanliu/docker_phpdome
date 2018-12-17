@@ -43,7 +43,6 @@ RUN set -ex \
 	intl \
 	fileinfo \
 	redis \
-	redis \
 	yaf \
 #	swoole \
 && rm -rf /usr/src/php/* \
