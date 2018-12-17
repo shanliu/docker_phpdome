@@ -21,23 +21,10 @@ services:
       default:
         aliases:
           - host-redis
-          
-  mongo:
-    container_name: ls_mongo
-    image: mongo:4
-    volumes:
-        - $PWD/docker/data/mongo:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 110
-    networks:
-      default:
-        aliases:
-          - host-mongo
 
   php:
     container_name: webdome
-    image: shanliu/webdome
+    image: shanliu/fpmdome
     build:
       context: ./
       dockerfile: Dockerfile
@@ -53,12 +40,11 @@ services:
     container_name: ls_nginx
     image: nginx:1.15.7-alpine
     ports:
-      - '80:80'
+      - '8011:80'
     volumes:
       - $PWD/docker/nginx/conf.d/www.conf:/etc/nginx/conf.d/www.conf:ro
       - $PWD/www/public/:/var/www/public/:ro
     depends_on:
       - mysql
       - redis
-      - mongo
       - php  

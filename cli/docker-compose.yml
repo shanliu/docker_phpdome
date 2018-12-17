@@ -1,0 +1,36 @@
+version: '2.0'
+services:    
+  mysql:
+    container_name: ls_mysql
+    image: mysql
+    volumes:
+      - $PWD/docker/data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=110
+    networks:
+      default:
+        aliases:
+          - host-mysql
+
+  redis:
+    container_name: ls_redis
+    image: redis:5.0.3-alpine
+    volumes:
+        - $PWD/docker/data/redis:/data
+    networks:
+      default:
+        aliases:
+          - host-redis
+          
+  php:
+    container_name: ls_cli
+    image: shanliu/clidome
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - $PWD/www:/var/www/:ro #ro 表示只读
+    depends_on:
+      - mysql
+      - redis
+    
